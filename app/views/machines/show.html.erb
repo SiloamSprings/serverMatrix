@@ -1,0 +1,42 @@
+<div id="header">
+  <h1>Machine Details</h1>
+</div>
+
+<div id="navigation">
+  <ul>
+    <li><%= link_to 'List', machines_path %></li>
+    <li><%= link_to 'Edit', edit_machine_path(@machine) %></li>
+    <% if user_signed_in? %>
+      <li><%= link_to "Sign out", destroy_user_session_path %></li>
+    <% else %>
+      <li><%= link_to "Sign in", new_user_session_path %></li>
+    <% end %>
+  </ul>
+</div>
+
+
+<br />
+<br />
+<h2><%= @machine.dns %></h2>
+<b>IP:</b> <%= @machine.ip %><br /> 
+<b>Type:</b> <%= @machine.mtype.type_name %><br />
+<b>DRAC:</b> <%= link_to "#{@machine.drac}", "http://#{@machine.drac}" %><br />
+
+
+# display parent/children
+<% if @machine.has_parent? %>
+  <b>Parent:</b> <%= link_to @machine.parent.dns, "/machines/#{@machine.parent.id}" %> <br />
+<% elsif %>
+  <% if @machine.has_children? %>
+    <b>Guests:</b> 
+    <% @machine.children.each do |child| %>
+      <%= link_to child.dns, "/machines/#{child.id}"  %> 
+    <% end %>
+  <%end%>
+<% end %>
+
+<p>
+  <%= raw(markdown(@machine.description)) %>
+</p>
+
+

@@ -1,0 +1,41 @@
+<%= form_for(@machine) do |f| %>
+  <% if @machine.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@machine.errors.count, "error") %> prohibited this machine from being saved:</h2>
+
+      <ul>
+      <% @machine.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :dns, "Hostname/DNS: " %>
+    <%= f.text_field :dns %>
+  </div>
+  <div class="field">
+    <%= f.label :ip, "IP: " %>
+    <%= f.text_field :ip %>
+  </div>
+  <div class="drac">
+    <%= f.label :drac, "DRAC: " %>
+    <%= f.text_field :drac %>
+  </div>
+  <div class="field">
+    <%= f.label :mtype_id, "Machine Type: " %>
+    <%= select(:machine, :mtype_id, Mtype.types) %>
+    <div class="hidden_select">
+      <%= f.label :hosts, "Parent: " %>
+      <%= select(:machine, :parent_key, @hosts.map{ |h| [ h.dns, h.id ] }) %>
+    </div> 
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

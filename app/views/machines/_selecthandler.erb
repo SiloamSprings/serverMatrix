@@ -1,0 +1,12 @@
+<script type="text/javascript">
+$(document).ready(function(){
+    $('select#machine_mtype_id').change(function(){
+      var mtype = $(this).val();
+      if(mtype == 3){
+        $('.hidden_select').show();
+      } else { 
+        $('.hidden_select').hide(); 
+      } 
+    });    
+});
+</script>

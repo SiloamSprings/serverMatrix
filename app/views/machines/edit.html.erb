@@ -1,0 +1,21 @@
+<div id="header">
+  <h1>Editing machine</h1>
+</div>
+
+<div id="navigation">
+  <ul>
+    <li><%= link_to 'List', machines_path %></li>
+    <li><%= link_to 'Show', @machine %></li>
+    <li><%= link_to "Markdown", "http://daringfireball.net/projects/markdown/basics", :target => "_new"%></li>
+    <% if user_signed_in? %>
+      <li><%= link_to "Sign out", destroy_user_session_path %></li>
+    <% else %>
+      <li><%= link_to "Sign in", new_user_session_path %></li>
+    <% end %>
+  </ul>
+</div>
+
+
+<p>
+<%= render 'form' %>
+<%= render 'selecthandler' %>

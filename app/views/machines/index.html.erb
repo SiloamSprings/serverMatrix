@@ -1,0 +1,44 @@
+<%= stylesheet_link_tag "machines" %>
+
+<div id="header">
+  <h1>Listing machines</h1>
+</div>
+
+<div id="navigation">
+  <ul>
+    <li><%= link_to 'New Machine', new_machine_path %></li>
+    <% if user_signed_in? %>
+      <li><%= link_to "Sign out", destroy_user_session_path %></li>
+    <% else %>
+      <li><%= link_to "Sign in", new_user_session_path %></li>
+    <% end %>
+  </ul>
+</div>
+
+
+<div id="content">
+  <div id="machines">
+  <table>
+   <tr>
+     <th>DNS</th>
+     <th>IP</th>
+     <th>MACHINE TYPE</th>
+     <th>DRAC</th>
+     <th colspan=4>DESCRIPTION</th>
+   </tr>
+
+  <% @machines.each do |machine| %>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= machine.dns %></td>
+      <td><%= machine.ip %></td>
+      <td><%= machine.mtype.type_name %></td>
+      <td><%= link_to "#{machine.drac}", "http://#{machine.drac}" %></td>
+      <td><%= truncate(machine.description) %></td>
+      <td><%= link_to 'Show', machine %></td>
+      <td><%= link_to 'Edit', edit_machine_path(machine) %></td>
+      <td><%= link_to 'Destroy', machine, :confirm => 'Are you sure?', :method => :delete %></td>
+     </tr>
+  <% end %>
+  </table>
+</div>
+</div>
